@@ -11,7 +11,7 @@
             console.log('Hubo un error');
         };
         clienteDB.onsuccess = () => {
-            console.log('Base de datos creada');
+            console.log('Base de datos creada index');
             DB = clienteDB.result;
         };
         clienteDB.onupgradeneeded = (e) =>{

@@ -30,12 +30,39 @@
             return;
         }
         //Crear objeto para guardar datos
+        const infoCliente = {
+            nombre,
+            email,
+            telefono,
+            empresa
+        }
+        infoCliente.id = Date.now();
+        agregarCliente(infoCliente);
         
-        imprimirAlerta('Cliente agregado');
-        setTimeout(() => {
-            formulario.reset();
-        }, 2000);
+        
     }
+
+    function agregarCliente(cliente){
+        const transaccion = DB.transaction(['crm'], 'readwrite');
+        const objectStore = transaccion.objectStore('crm');
+
+        objectStore.add(cliente);
+        console.log(cliente);
+        transaccion.oncomplete = function(){
+            imprimirAlerta('Cliente Agregado Correctamente', 'exito');
+            console.log('Cliente agregado');
+            setTimeout(() => {
+                formulario.reset();
+                window.location.href = 'index.html';
+            }, 2000);
+            
+        }
+        transaccion.onerror = function(){
+            console.log('No se agrego el cliente, intente de nuevo');
+            imprimirAlerta('Esté correo ya ha sido registrado', 'error');
+        }
+    }
+
     function imprimirAlerta(mensaje, tipo){
         const alerta = document.querySelector('.alerta')
         if(!alerta){
