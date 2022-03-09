@@ -47,38 +47,17 @@
         const objectStore = transaccion.objectStore('crm');
 
         objectStore.add(cliente);
-        console.log(cliente);
         transaccion.oncomplete = function(){
             imprimirAlerta('Cliente Agregado Correctamente', 'exito');
-            console.log('Cliente agregado');
             setTimeout(() => {
                 formulario.reset();
                 window.location.href = 'index.html';
-            }, 2000);
+            }, 500);
             
         }
         transaccion.onerror = function(){
             console.log('No se agrego el cliente, intente de nuevo');
             imprimirAlerta('Esté correo ya ha sido registrado', 'error');
-        }
-    }
-
-    function imprimirAlerta(mensaje, tipo){
-        const alerta = document.querySelector('.alerta')
-        if(!alerta){
-            const divMensaje = document.createElement('DIV');
-            divMensaje.textContent = mensaje;
-            divMensaje.classList.add('px-4', 'py-3', 'rounded', 'mx-w-lg', 'mx-auto', 'mt-6', 'text-center','border', 'alerta');
-            if(tipo === 'error'){
-                divMensaje.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
-            }else{
-                divMensaje.classList.add('bg-greed-100', 'border-green-400', 'text-green-700');
-            }
-
-            formulario.appendChild(divMensaje);
-            setTimeout(() => {
-                divMensaje.remove();
-            }, 2000);
         }
     }
 
