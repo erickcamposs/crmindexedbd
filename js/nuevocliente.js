@@ -39,7 +39,6 @@
         infoCliente.id = Date.now();
         agregarCliente(infoCliente);
         
-        
     }
 
     function agregarCliente(cliente){
