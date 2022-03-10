@@ -48,7 +48,6 @@
             objectStore.openCursor().onsuccess = function (e){
                 const cursor = e.target.result;
                 if(cursor){
-                    
                     const {nombre, telefono, empresa, email, id} = cursor.value;
                     listado.innerHTML += ` 
                     <tr>
